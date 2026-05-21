@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Police Administration System</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <main id="setup-view" class="auth-shell hidden">
+    <section class="auth-panel">
+      <h1>First Admin Setup</h1>
+      <p>Create the first administrator. This appears only while the users table is empty.</p>
+      <form id="setup-form" class="stack">
+        <input id="setup-name" placeholder="Full name" required>
+        <input id="setup-username" placeholder="Username" required>
+        <input id="setup-password" type="password" placeholder="Password" minlength="6" required>
+        <button>Create Admin</button>
+      </form>
+      <div id="setup-message" class="message"></div>
+    </section>
+  </main>
+
+  <main id="login-view" class="auth-shell hidden">
+    <section class="auth-panel">
+      <h1>Police Administration</h1>
+      <p>Sign in with a database user account.</p>
+      <form id="login-form" class="stack">
+        <input id="login-username" placeholder="Username" autocomplete="username" required>
+        <input id="login-password" type="password" placeholder="Password" autocomplete="current-password" required>
+        <button>Sign In</button>
+      </form>
+      <div id="login-message" class="message error"></div>
+    </section>
+  </main>
+
+  <main id="app-view" class="app hidden">
+    <aside class="sidebar">
+      <div>
+        <h2>Police Admin</h2>
+        <p id="signed-in-user"></p>
+      </div>
+      <nav>
+        <button class="nav-button active" data-tab="dashboard-tab">Dashboard</button>
+        <button class="nav-button" data-tab="firs-tab">FIRs</button>
+        <button class="nav-button admin-only" data-tab="stations-tab">Stations</button>
+        <button class="nav-button admin-only" data-tab="users-tab">Users</button>
+      </nav>
+      <button id="logout-button" class="secondary">Sign Out</button>
+    </aside>
+
+    <section class="content">
+      <div id="global-message" class="message"></div>
+
+      <section id="dashboard-tab" class="tab">
+        <div class="page-title">
+          <h1>Dashboard</h1>
+          <p>Live data from MySQL, not seed data or files.</p>
+        </div>
+        <div class="stats">
+          <article><span>Total FIRs</span><strong id="stat-firs">0</strong></article>
+          <article><span>Open FIRs</span><strong id="stat-open">0</strong></article>
+          <article><span>Stations</span><strong id="stat-stations">0</strong></article>
+          <article class="admin-only"><span>Users</span><strong id="stat-users">0</strong></article>
+        </div>
+      </section>
+
+      <section id="firs-tab" class="tab hidden">
+        <div class="page-title">
+          <h1>FIR Management</h1>
+          <button id="new-fir-button">New FIR</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>FIR #</th>
+                <th>Complainant</th>
+                <th>Incident</th>
+                <th>Station</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="firs-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="stations-tab" class="tab hidden">
+        <div class="page-title">
+          <h1>Station Management</h1>
+          <button id="new-station-button">New Station</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>City</th>
+                <th>Phone</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="stations-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="users-tab" class="tab hidden">
+        <div class="page-title">
+          <h1>User Management</h1>
+          <button id="new-user-button">New User</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Station</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="record-dialog">
+    <form id="record-form" method="dialog" class="dialog-form">
+      <div class="dialog-head">
+        <h2 id="dialog-title"></h2>
+        <button type="button" id="close-dialog" class="icon-button">x</button>
+      </div>
+      <div id="dialog-fields" class="form-grid"></div>
+      <div id="dialog-message" class="message error"></div>
+      <div class="dialog-actions">
+        <button type="button" id="cancel-dialog" class="secondary">Cancel</button>
+        <button id="save-dialog">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
